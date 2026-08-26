@@ -1,0 +1,11 @@
+feature,function,auc_score_train,auc_score_val,r2_score
+MonthlyIncome,logarithmic,0.574984,0.578731,0.020552
+NumberOfDependents,polynomial_1,0.545507,0.549962,0.418343
+age,polynomial_1,0.630955,0.645652,0.820277
+NumberOfTime30-59DaysPastDueNotWorse,polynomial_1,0.68697,0.695416,0.787866
+NumberOfOpenCreditLinesAndLoans,polynomial_1,0.54633,0.539902,0.07748
+NumberOfTimes90DaysLate,polynomial_1,0.659081,0.65247,0.76686
+NumberRealEstateLoansOrLines,polynomial_1,0.536094,0.540528,0.078617
+NumberOfTime60-89DaysPastDueNotWorse,polynomial_1,0.622201,0.620665,0.824595
+RevolvingUtilizationOfUnsecuredLines,polynomial_1,0.777888,0.777486,0.887166
+DebtRatio,polynomial_1,0.477167,0.473647,0.060358

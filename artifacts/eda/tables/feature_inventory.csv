@@ -1,0 +1,12 @@
+feature,dtype,semantic_type,missing_pct,unique_values,cardinality_group,is_constant,is_near_constant
+NumberOfDependents,float64,Continua,2.62,13,,False,False
+MonthlyIncome,float64,Continua,19.82,13594,,False,False
+SeriousDlqin2yrs,int64,Conteo,0.0,2,,False,True
+age,int64,Continua,0.0,86,,False,False
+NumberOfTime30-59DaysPastDueNotWorse,int64,Conteo,0.0,16,,False,False
+NumberOfOpenCreditLinesAndLoans,int64,Continua,0.0,58,,False,False
+NumberOfTimes90DaysLate,int64,Conteo,0.0,19,,False,False
+NumberRealEstateLoansOrLines,int64,Conteo,0.0,28,,False,False
+NumberOfTime60-89DaysPastDueNotWorse,int64,Conteo,0.0,13,,False,False
+RevolvingUtilizationOfUnsecuredLines,float64,Continua,0.0,125728,,False,False
+DebtRatio,float64,Continua,0.0,114194,,False,False

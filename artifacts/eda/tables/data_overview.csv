@@ -1,0 +1,2 @@
+filas,columnas,features_numericas,features_categoricas,features_datetime,features_booleanas,missing_global,features_con_missing,features_mas_20pct_missing,filas_duplicadas,features_constantes,features_casi_constantes,features_alta_cardinalidad,features_baja_cardinalidad,tipo_problema,target,target_rate_pct,no_event_rate_pct,ratio_desbalanceo
+150000,11,11,0,0,0,33655,2,2,609,0,1,0,0,clasificacion,SeriousDlqin2yrs,6.68,93.32,14.0

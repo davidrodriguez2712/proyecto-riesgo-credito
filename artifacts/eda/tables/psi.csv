@@ -1,0 +1,11 @@
+feature,type,psi,interpretacion
+MonthlyIncome,numeric,0.0004,Sin drift
+RevolvingUtilizationOfUnsecuredLines,numeric,0.0001,Sin drift
+age,numeric,0.0001,Sin drift
+DebtRatio,numeric,0.0001,Sin drift
+NumberOfOpenCreditLinesAndLoans,numeric,0.0001,Sin drift
+NumberRealEstateLoansOrLines,numeric,0.0001,Sin drift
+NumberOfDependents,numeric,0.0001,Sin drift
+NumberOfTime30-59DaysPastDueNotWorse,numeric,0.0,Sin drift
+NumberOfTimes90DaysLate,numeric,0.0,Sin drift
+NumberOfTime60-89DaysPastDueNotWorse,numeric,0.0,Sin drift
