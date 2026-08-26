@@ -1,41 +1,41 @@
-import plotly.graph_objects as go
+import base64
+
 import requests
 import streamlit as st
 
 from api_client import predict
 from config import RISK_BAND_COLORS
-from dashboard_data import BEST_MODEL, DATASET_INFO
 from layout import render_header
 
 render_header()
-st.subheader("Make Prediction")
+st.subheader("Realizar Predicción")
 
 with st.form("prediction_form"):
     col_a, col_b = st.columns(2)
     with col_a:
         revolving_utilization = st.number_input(
-            "Revolving Utilization Of Unsecured Lines", min_value=0.0, value=0.5, step=0.01, format="%.4f"
+            "Utilización Rotativa de Líneas No Aseguradas", min_value=0.0, value=0.5, step=0.01, format="%.4f"
         )
-        age = st.number_input("Age", min_value=18, max_value=110, value=35, step=1)
+        age = st.number_input("Edad", min_value=18, max_value=110, value=35, step=1)
         past_due_30_59 = st.number_input(
-            "Number Of Time 30-59 Days Past Due Not Worse", min_value=0, value=0, step=1
+            "N° de Veces con 30-59 Días de Atraso", min_value=0, value=0, step=1
         )
-        debt_ratio = st.number_input("Debt Ratio", min_value=0.0, value=0.3, step=0.01, format="%.4f")
-        monthly_income = st.number_input("Monthly Income", min_value=0.0, value=5000.0, step=100.0)
+        debt_ratio = st.number_input("Ratio de Endeudamiento", min_value=0.0, value=0.3, step=0.01, format="%.4f")
+        monthly_income = st.number_input("Ingreso Mensual", min_value=0.0, value=5000.0, step=100.0)
     with col_b:
         open_credit_lines = st.number_input(
-            "Number Of Open Credit Lines And Loans", min_value=0, value=5, step=1
+            "N° de Líneas de Crédito y Préstamos Abiertos", min_value=0, value=5, step=1
         )
-        times_90_days_late = st.number_input("Number Of Times 90 Days Late", min_value=0, value=0, step=1)
+        times_90_days_late = st.number_input("N° de Veces con 90 Días de Atraso", min_value=0, value=0, step=1)
         real_estate_loans = st.number_input(
-            "Number Real Estate Loans Or Lines", min_value=0, value=1, step=1
+            "N° de Préstamos o Líneas Hipotecarias", min_value=0, value=1, step=1
         )
         past_due_60_89 = st.number_input(
-            "Number Of Time 60-89 Days Past Due Not Worse", min_value=0, value=0, step=1
+            "N° de Veces con 60-89 Días de Atraso", min_value=0, value=0, step=1
         )
-        dependents = st.number_input("Number Of Dependents", min_value=0.0, value=0.0, step=1.0)
+        dependents = st.number_input("N° de Dependientes", min_value=0.0, value=0.0, step=1.0)
 
-    submitted = st.form_submit_button("Predict Probability")
+    submitted = st.form_submit_button("Calcular Probabilidad")
 
 if submitted:
     payload = {
@@ -58,61 +58,28 @@ if submitted:
         st.session_state["prediction_result"] = None
         st.error(f"No se pudo obtener la predicción del backend: {exc}")
 
-result_col, key_info_col = st.columns(2)
-
-with result_col:
-    st.subheader("Prediction Result")
-    result = st.session_state.get("prediction_result")
-    if result is None:
-        st.info("Completa el formulario y presiona 'Predict Probability' para ver el resultado.")
-    else:
-        pd_estimada = result["pd_estimada"]
-        banda = result["banda_riesgo"]
-        color = RISK_BAND_COLORS.get(banda, "#888888")
-        st.markdown(f"<h1 style='color:{color}'>{pd_estimada:.2%}</h1>", unsafe_allow_html=True)
-        st.markdown(
-            f"Risk Score: <span style='color:{color};font-weight:600'>{banda}</span>",
-            unsafe_allow_html=True,
-        )
-        st.progress(min(pd_estimada, 1.0))
-        st.caption(f"Modelo: {result['version_modelo']}")
-
-with key_info_col:
-    st.subheader("Key Information")
-    st.markdown(f"**Model Type:** {BEST_MODEL['nombre']}")
-    st.markdown(f"**Target:** {DATASET_INFO['target']}")
-    st.markdown("**Evaluation Metric:** AUC")
-    st.markdown(f"**Best AUC (CV):** {BEST_MODEL['auc_cv']}")
-    st.markdown(f"**Default Rate (Train):** {DATASET_INFO['default_rate_train']:.2%}")
-    st.markdown(f"**Población (Train):** {DATASET_INFO['poblacion_train']:,}")
+st.subheader("Resultado de la Predicción")
+result = st.session_state.get("prediction_result")
+if result is None:
+    st.info("Completa el formulario y presiona 'Calcular Probabilidad' para ver el resultado.")
+else:
+    pd_estimada = result["pd_estimada"]
+    banda = result["banda_riesgo"]
+    color = RISK_BAND_COLORS.get(banda, "#888888")
+    st.markdown(f"<h1 style='color:{color}'>{pd_estimada:.2%}</h1>", unsafe_allow_html=True)
+    st.markdown(
+        f"Nivel de Riesgo: <span style='color:{color};font-weight:600'>{banda}</span>",
+        unsafe_allow_html=True,
+    )
+    st.progress(min(pd_estimada, 1.0))
+    st.caption(f"Modelo: {result['version_modelo']}")
 
 if result is not None:
     st.subheader("¿Qué impulsó esta predicción?")
 
-    contribuciones = result["shap_contributions"]
-    base_pd = result["base_pd"]
-    pd_estimada = result["pd_estimada"]
-
-    labels = ["PD base"] + [c["feature"] for c in contribuciones] + ["PD estimada"]
-    valores = [base_pd] + [c["contribucion_pp"] for c in contribuciones] + [pd_estimada]
-    measure = ["absolute"] + ["relative"] * len(contribuciones) + ["total"]
-
-    fig_waterfall = go.Figure(
-        go.Waterfall(
-            x=labels,
-            y=valores,
-            measure=measure,
-            text=[f"{v:.2%}" for v in valores],
-            textposition="outside",
-            connector={"line": {"color": "rgba(150,150,150,0.5)"}},
-            increasing={"marker": {"color": "#e74c3c"}},
-            decreasing={"marker": {"color": "#2ecc71"}},
-            totals={"marker": {"color": "#3498db"}},
-        )
-    )
-    fig_waterfall.update_layout(template="plotly_dark", height=450, yaxis_tickformat=".0%")
-    st.plotly_chart(fig_waterfall, use_container_width=True)
+    waterfall_png = base64.b64decode(result["shap_waterfall_png_base64"])
+    st.image(waterfall_png, use_container_width=True)
     st.caption(
-        "Contribución de cada feature a la PD del cliente, en puntos porcentuales, "
-        "partiendo de la PD base del modelo. 'Otras features' agrupa el resto de variables no mostradas."
+        "Waterfall SHAP oficial (shap.plots.waterfall) — contribución de cada feature al log-odds "
+        "de la predicción, partiendo del valor base del modelo (E[f(X)]) hasta el valor final (f(x))."
     )

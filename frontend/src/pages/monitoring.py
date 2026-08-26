@@ -24,17 +24,17 @@ def render_image_grid(paths: list[str]) -> None:
 
 
 render_header()
-st.subheader("Monitoring")
+st.subheader("Monitoreo")
 
 psi_col, target_col = st.columns(2)
 
 with psi_col:
-    st.subheader("Data Drift (PSI)")
+    st.subheader("Drift de Datos (PSI)")
     st.dataframe(PSI_SNAPSHOT, use_container_width=True, hide_index=True)
     st.caption("Snapshot del último periodo monitoreado (2026-06)")
 
 with target_col:
-    st.subheader("Target Drift")
+    st.subheader("Drift del Target")
     periodos_td = [p for p, _, _ in TARGET_DRIFT]
     bad_rate_td = [b for _, b, _ in TARGET_DRIFT]
     pd_td = [p for _, _, p in TARGET_DRIFT]

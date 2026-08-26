@@ -17,9 +17,9 @@ from layout import render_header
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 render_header()
-st.subheader("EDA - Exploratory Data Analysis")
+st.subheader("EDA - Análisis Exploratorio de Datos")
 
-st.subheader("Overview")
+st.subheader("Resumen General")
 m1, m2, m3, m4, m5 = st.columns(5)
 m1.metric("Filas", f"{EDA_OVERVIEW['filas']:,}")
 m2.metric("Columnas", EDA_OVERVIEW["columnas"])
@@ -30,7 +30,7 @@ m5.metric("Filas duplicadas", EDA_OVERVIEW["filas_duplicadas"])
 target_col, missing_col = st.columns(2)
 
 with target_col:
-    st.subheader("Target Balance")
+    st.subheader("Balance del Target")
     fig_target = go.Figure(
         go.Bar(
             x=["No Default (0)", "Default (1)"],
@@ -45,7 +45,7 @@ with target_col:
     st.caption(f"Ratio de desbalanceo: {EDA_TARGET_SUMMARY['imbalance_rate']} — {EDA_TARGET_SUMMARY['nivel_desbalance']}")
 
 with missing_col:
-    st.subheader("Missing Values")
+    st.subheader("Valores Faltantes")
     fig_missing = go.Figure(
         go.Bar(
             x=[d["missing_pct"] for d in EDA_MISSING],

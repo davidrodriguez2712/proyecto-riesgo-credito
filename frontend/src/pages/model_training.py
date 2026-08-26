@@ -5,12 +5,12 @@ from dashboard_data import BEST_MODEL, CALIBRATION_CURVE, FEATURE_IMPORTANCE_TOP
 from layout import render_header
 
 render_header()
-st.subheader("Model Training")
+st.subheader("Entrenamiento del Modelo")
 
 perf_col, auc_col = st.columns(2)
 
 with perf_col:
-    st.subheader("Model Performance Summary")
+    st.subheader("Resumen de Desempeño del Modelo")
     modelos = [m["modelo"] for m in MODEL_COMPARISON]
     aucs = [m["auc_cv"] for m in MODEL_COMPARISON]
     ginis = [round(2 * m["auc_cv"] - 1, 3) for m in MODEL_COMPARISON]
@@ -20,10 +20,10 @@ with perf_col:
     fig_perf.add_bar(name="Gini", x=modelos, y=ginis, marker_color="#2ecc71")
     fig_perf.update_layout(barmode="group", template="plotly_dark", height=400)
     st.plotly_chart(fig_perf, use_container_width=True)
-    st.caption(f"Best Model: {BEST_MODEL['nombre']} (AUC CV: {BEST_MODEL['auc_cv']})")
+    st.caption(f"Mejor Modelo: {BEST_MODEL['nombre']} (AUC CV: {BEST_MODEL['auc_cv']})")
 
 with auc_col:
-    st.subheader("AUC Over Time (OOT)")
+    st.subheader("AUC en el Tiempo (OOT)")
     periodos = [p for p, _, _ in MONITORING_AUC_GINI["mensual"]]
     aucs_mensual = [a for _, a, _ in MONITORING_AUC_GINI["mensual"]]
     ginis_mensual = [g for _, _, g in MONITORING_AUC_GINI["mensual"]]
@@ -33,11 +33,11 @@ with auc_col:
     fig_auc.add_scatter(name="Gini", x=periodos, y=ginis_mensual, mode="lines+markers", line_color="#2ecc71")
     fig_auc.update_layout(template="plotly_dark", height=400)
     st.plotly_chart(fig_auc, use_container_width=True)
-    st.caption("Stable performance over time")
+    st.caption("Desempeño estable en el tiempo")
 
 fi_col, cal_col = st.columns(2)
 with fi_col:
-    st.subheader("Feature Importance (Top 10)")
+    st.subheader("Importancia de Variables (Top 10)")
     if FEATURE_IMPORTANCE_TOP10 is None:
         st.info("Próximamente — pendiente de exportar datos reales del notebook.")
     else:
@@ -47,9 +47,9 @@ with fi_col:
         fig_fi = go.Figure(go.Bar(x=importances, y=features, orientation="h", marker_color="#9b59b6"))
         fig_fi.update_layout(template="plotly_dark", height=400, xaxis_title="Mean |SHAP value|")
         st.plotly_chart(fig_fi, use_container_width=True)
-        st.caption("Ver el gráfico SHAP original del notebook en la página Model Evaluation.")
+        st.caption("Ver el gráfico SHAP original del notebook en la página Evaluación del Modelo.")
 with cal_col:
-    st.subheader("Calibration Curve")
+    st.subheader("Curva de Calibración")
     if CALIBRATION_CURVE is None:
         st.info("Próximamente — pendiente de exportar datos reales del notebook.")
     else:

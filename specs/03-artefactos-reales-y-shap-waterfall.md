@@ -1,6 +1,6 @@
 # SPEC 03 — Artefactos reales del pipeline y SHAP waterfall por cliente
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 02
 > **Fecha:** 2026-08-26
 > **Objetivo:** Incorporar a sus páginas correspondientes los artefactos reales (tablas y gráficos) que ahora existen en `artifacts/feature_engineering`, `artifacts/model_evaluation`, `artifacts/training_model` y `artifacts/monitoring`, y agregar en Make Prediction un SHAP waterfall que explique, para el cliente recién predicho, qué features empujaron su PD hacia arriba o hacia abajo.

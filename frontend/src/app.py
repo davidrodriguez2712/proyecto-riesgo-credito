@@ -7,13 +7,13 @@ st.set_page_config(
 )
 
 pages = [
-    st.Page("pages/home.py", title="Home", default=True),
+    st.Page("pages/home.py", title="Inicio", default=True),
     st.Page("pages/eda.py", title="EDA"),
     st.Page("pages/feature_engineering.py", title="Feature Engineering"),
-    st.Page("pages/model_training.py", title="Model Training"),
-    st.Page("pages/model_evaluation.py", title="Model Evaluation"),
-    st.Page("pages/monitoring.py", title="Monitoring"),
-    st.Page("pages/make_prediction.py", title="Make Prediction"),
+    st.Page("pages/model_training.py", title="Entrenamiento del Modelo"),
+    st.Page("pages/model_evaluation.py", title="Evaluación del Modelo"),
+    st.Page("pages/monitoring.py", title="Monitoreo"),
+    st.Page("pages/make_prediction.py", title="Realizar Predicción"),
 ]
 
 pg = st.navigation(pages)

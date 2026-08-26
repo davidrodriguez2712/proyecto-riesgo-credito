@@ -1,7 +1,11 @@
-import math
+import base64
+import io
 from functools import lru_cache
 
 import joblib
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import shap
 from src.config.config import settings
 
@@ -18,11 +22,7 @@ FEATURE_ORDER = [
     'NumberOfDependents',
 ]
 
-TOP_N_FEATURES = 6
-
-
-def _sigmoid(x: float) -> float:
-    return 1 / (1 + math.exp(-x))
+WATERFALL_MAX_DISPLAY = 7
 
 
 class ModelService:
@@ -42,40 +42,22 @@ class ModelService:
         base_value = self.explainer.expected_value
         base_value = base_value if not hasattr(base_value, '__len__') else base_value[-1]
 
-        ordenado = sorted(
-            zip(FEATURE_ORDER, x[0], shap_values),
-            key=lambda item: abs(item[2]),
-            reverse=True,
+        explanation = shap.Explanation(
+            values=shap_values,
+            base_values=base_value,
+            data=x[0],
+            feature_names=FEATURE_ORDER,
         )
-        top = ordenado[:TOP_N_FEATURES]
-        resto = ordenado[TOP_N_FEATURES:]
 
-        contribuciones = []
-        running_margin = base_value
-        prev_prob = _sigmoid(running_margin)
-
-        for nombre, valor, margin_shap in top:
-            running_margin += margin_shap
-            new_prob = _sigmoid(running_margin)
-            contribuciones.append({
-                'feature': nombre,
-                'valor_cliente': float(valor),
-                'contribucion_pp': new_prob - prev_prob,
-            })
-            prev_prob = new_prob
-
-        margin_resto = sum(item[2] for item in resto)
-        running_margin += margin_resto
-        new_prob = _sigmoid(running_margin)
-        contribuciones.append({
-            'feature': 'Otras features',
-            'valor_cliente': None,
-            'contribucion_pp': new_prob - prev_prob,
-        })
+        fig = plt.figure()
+        shap.plots.waterfall(explanation, max_display=WATERFALL_MAX_DISPLAY, show=False)
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
+        plt.close(fig)
+        buf.seek(0)
 
         return {
-            'base_pd': _sigmoid(base_value),
-            'shap_contributions': contribuciones,
+            'shap_waterfall_png_base64': base64.b64encode(buf.read()).decode('ascii'),
         }
 
 

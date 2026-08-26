@@ -100,10 +100,9 @@ PORTFOLIO_MANAGEMENT = [
 PREPROCESSING_PIPELINE = [
     {"paso": "Manejo de outliers", "detalle": "Capado IQR/percentil por variable numérica antes del binning."},
     {"paso": "Binning", "detalle": "Discretización de cada variable en bins monotónicos respecto al target."},
-    {"paso": "WOE Encoding (WOEClassic)", "detalle": "Cada bin se reemplaza por su Weight of Evidence respecto a SeriousDlqin2yrs."},
-    {"paso": "Log-Odds Rolling Smoothing", "detalle": "Suavizado por rolling window del log-odds en bins con pocas observaciones, para estabilizar el WOE antes de usarlo como feature."},
+    {"paso": "Log-Odds Rolling Smoothing", "detalle": "Suavizado por rolling window del log-odds en bins con pocas observaciones, para estabilizar el log-odds antes de usarlo como feature."},
     {"paso": "Selección de features", "detalle": "Filtro por correlación, VIF, Information Value, PSI y Gini univariado; subset final fijado por FeatureSelector."},
-]  # fuente: Feature_Engineering/utils/transformers/woe.py (WOEClassic, Logit_Smoothing_Rolling) y selection/feature_selector.py
+]  # fuente: Feature_Engineering/utils/transformers/woe.py (Logit_Smoothing_Rolling) y selection/feature_selector.py
 
 MODEL_SELECTION_NOTE = (
     "LogisticRegression alcanzó un AUC (CV) de 0.825, competitivo y más interpretable, "

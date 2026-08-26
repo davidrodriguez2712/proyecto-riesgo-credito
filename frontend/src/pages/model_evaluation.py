@@ -8,7 +8,7 @@ from layout import render_header
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 render_header()
-st.subheader("Model Evaluation")
+st.subheader("Evaluación del Modelo")
 
 st.write(
     "Estos análisis sustentan los thresholds de banda de riesgo usados en producción "

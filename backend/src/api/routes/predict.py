@@ -40,8 +40,7 @@ def predict(cliente: ClienteInput, service: ModelService = Depends(get_model_ser
         pd_estimada= pd,
         banda_riesgo= clasificacion_riesgo,
         version_modelo= service.version,
-        base_pd= explicacion['base_pd'],
-        shap_contributions= explicacion['shap_contributions']
+        shap_waterfall_png_base64= explicacion['shap_waterfall_png_base64']
     )
 
 
