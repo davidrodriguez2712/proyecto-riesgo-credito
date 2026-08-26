@@ -1,6 +1,6 @@
 # SPEC 04 — Correcciones de contenido y traducción a español
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 02
 > **Fecha:** 2026-08-26
 > **Objetivo:** Corregir el label incorrecto de la variable target en Home, quitar el paso "WOE Encoding" que no se usó en el pipeline real, traducir a español los títulos/subtítulos/captions/labels del frontend que hoy están en inglés, y quitar la sección "Key Information" de Make Prediction.
