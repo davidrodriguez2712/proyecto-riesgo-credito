@@ -1,0 +1,36 @@
+version: 1
+
+disable_existing_loggers: False
+
+formatters:
+  standard:
+    format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+  simple:
+    format: "%(levelname)s | %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: standard
+    filename: logs/mlops.log
+    maxBytes: 1048576
+    backupCount: 3
+    encoding: utf8
+
+loggers:
+  mlops:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: False
+    
+root:
+  level: WARNING
+  handlers: [console]

@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+streamlit
+pandas
+numpy
+scikit-learn
+joblib
+requests
+pydantic
+pyarrow
+shap
+matplotlib
+requests
+catboost
+pydantic_settings
