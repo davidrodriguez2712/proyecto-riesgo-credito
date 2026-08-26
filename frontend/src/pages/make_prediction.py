@@ -1,3 +1,4 @@
+import plotly.graph_objects as go
 import requests
 import streamlit as st
 
@@ -84,3 +85,34 @@ with key_info_col:
     st.markdown(f"**Best AUC (CV):** {BEST_MODEL['auc_cv']}")
     st.markdown(f"**Default Rate (Train):** {DATASET_INFO['default_rate_train']:.2%}")
     st.markdown(f"**Población (Train):** {DATASET_INFO['poblacion_train']:,}")
+
+if result is not None:
+    st.subheader("¿Qué impulsó esta predicción?")
+
+    contribuciones = result["shap_contributions"]
+    base_pd = result["base_pd"]
+    pd_estimada = result["pd_estimada"]
+
+    labels = ["PD base"] + [c["feature"] for c in contribuciones] + ["PD estimada"]
+    valores = [base_pd] + [c["contribucion_pp"] for c in contribuciones] + [pd_estimada]
+    measure = ["absolute"] + ["relative"] * len(contribuciones) + ["total"]
+
+    fig_waterfall = go.Figure(
+        go.Waterfall(
+            x=labels,
+            y=valores,
+            measure=measure,
+            text=[f"{v:.2%}" for v in valores],
+            textposition="outside",
+            connector={"line": {"color": "rgba(150,150,150,0.5)"}},
+            increasing={"marker": {"color": "#e74c3c"}},
+            decreasing={"marker": {"color": "#2ecc71"}},
+            totals={"marker": {"color": "#3498db"}},
+        )
+    )
+    fig_waterfall.update_layout(template="plotly_dark", height=450, yaxis_tickformat=".0%")
+    st.plotly_chart(fig_waterfall, use_container_width=True)
+    st.caption(
+        "Contribución de cada feature a la PD del cliente, en puntos porcentuales, "
+        "partiendo de la PD base del modelo. 'Otras features' agrupa el resto de variables no mostradas."
+    )

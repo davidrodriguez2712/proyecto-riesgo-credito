@@ -21,10 +21,11 @@ def clasificar_cliente(pd):
 @router.post('/predict', response_model= PredictionOutput)
 def predict(cliente: ClienteInput, service: ModelService = Depends(get_model_service)):
 
+    features = cliente.model_dump(by_alias= True)
+
     try:
-        pd = service.predict(
-            features= cliente.model_dump(by_alias= True)
-        )
+        pd = service.predict(features= features)
+        explicacion = service.explain(features= features)
     except Exception:
         logger.exception('Error durante la predicción')
 
@@ -38,7 +39,9 @@ def predict(cliente: ClienteInput, service: ModelService = Depends(get_model_ser
     return PredictionOutput(
         pd_estimada= pd,
         banda_riesgo= clasificacion_riesgo,
-        version_modelo= service.version
+        version_modelo= service.version,
+        base_pd= explicacion['base_pd'],
+        shap_contributions= explicacion['shap_contributions']
     )
 
 

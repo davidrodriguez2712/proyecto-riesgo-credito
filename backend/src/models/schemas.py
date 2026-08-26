@@ -21,7 +21,15 @@ class ClienteInput(BaseModel):
     model_config = {'populate_by_name': True}
 
 
+class ShapContribution(BaseModel):
+    feature: str
+    valor_cliente: float | None
+    contribucion_pp: float
+
+
 class PredictionOutput(BaseModel):
     pd_estimada: float
     banda_riesgo: str
     version_modelo: str
+    base_pd: float
+    shap_contributions: list[ShapContribution]

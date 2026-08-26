@@ -1,8 +1,27 @@
+from pathlib import Path
+
 import plotly.graph_objects as go
 import streamlit as st
 
-from dashboard_data import PSI_SNAPSHOT, TARGET_DRIFT
+from dashboard_data import MONITORING_FIGURES, PSI_SNAPSHOT, TARGET_DRIFT
 from layout import render_header
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
+MONITORING_SECTIONS = [
+    ("performance", "Performance"),
+    ("drift", "Drift"),
+    ("shap", "SHAP"),
+    ("calibracion", "Calibración"),
+]
+
+
+def render_image_grid(paths: list[str]) -> None:
+    cols = st.columns(2)
+    for i, path in enumerate(paths):
+        with cols[i % 2]:
+            st.image(str(PROJECT_ROOT / path), use_container_width=True)
+
 
 render_header()
 st.subheader("Monitoring")
@@ -25,3 +44,7 @@ with target_col:
     fig_target.add_scatter(name="PD", x=periodos_td, y=pd_td, mode="lines+markers", line_color="#3498db")
     fig_target.update_layout(template="plotly_dark", height=400)
     st.plotly_chart(fig_target, use_container_width=True)
+
+for key, titulo in MONITORING_SECTIONS:
+    st.subheader(titulo)
+    render_image_grid(MONITORING_FIGURES[key])

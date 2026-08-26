@@ -47,6 +47,7 @@ with fi_col:
         fig_fi = go.Figure(go.Bar(x=importances, y=features, orientation="h", marker_color="#9b59b6"))
         fig_fi.update_layout(template="plotly_dark", height=400, xaxis_title="Mean |SHAP value|")
         st.plotly_chart(fig_fi, use_container_width=True)
+        st.caption("Ver el gráfico SHAP original del notebook en la página Model Evaluation.")
 with cal_col:
     st.subheader("Calibration Curve")
     if CALIBRATION_CURVE is None:
