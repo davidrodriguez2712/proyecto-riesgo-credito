@@ -23,17 +23,3 @@ ENV PYTHONPATH=/usr/src/app
 EXPOSE 8082
 
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8082"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import streamlit as st
 
 from dashboard_data import (
@@ -42,7 +44,16 @@ with desc_col:
         "usando datos históricos de riesgo crediticio del dataset Give Me Credit."
     )
 with download_col:
-    st.button("Download Project PPT", disabled=True, help="Próximamente")
+    pptx_path = Path(__file__).resolve().parents[3] / "presentacion" / "Resumen_Presentacion.pptx"
+    if pptx_path.exists():
+        st.download_button(
+            "Download Project PPT",
+            data=pptx_path.read_bytes(),
+            file_name=pptx_path.name,
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        )
+    else:
+        st.button("Download Project PPT", disabled=True, help="Próximamente")
 
 card_1, card_2, card_3, card_4, card_5 = st.columns(5)
 with card_1:
