@@ -1,0 +1,11 @@
+feature,information_value
+RevolvingUtilizationOfUnsecuredLines,1.05955
+age,0.250022
+MonthlyIncome,0.076565
+DebtRatio,0.059485
+NumberOfOpenCreditLinesAndLoans,0.048021
+NumberOfDependents,0.024083
+NumberRealEstateLoansOrLines,0.01209
+NumberOfTime30-59DaysPastDueNotWorse,0.0
+NumberOfTimes90DaysLate,0.0
+NumberOfTime60-89DaysPastDueNotWorse,0.0

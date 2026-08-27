@@ -1,0 +1,11 @@
+feature,roc_auc,gini,missing_pct,regla
+RevolvingUtilizationOfUnsecuredLines,0.778,0.556,0.0,Mantener
+NumberOfTime30-59DaysPastDueNotWorse,0.69,0.379,0.0,Mantener
+NumberOfTimes90DaysLate,0.657,0.314,0.0,Mantener
+NumberOfTime60-89DaysPastDueNotWorse,0.622,0.243,0.0,Mantener
+NumberOfDependents,0.547,0.094,0.02616,Mantener
+DebtRatio,0.524,0.048,0.0,Mantener
+NumberRealEstateLoansOrLines,0.463,-0.075,0.0,Revisar
+NumberOfOpenCreditLinesAndLoans,0.455,-0.089,0.0,Revisar
+MonthlyIncome,0.424,-0.152,0.198207,Eliminar
+age,0.365,-0.271,0.0,Revisar

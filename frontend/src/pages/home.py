@@ -44,10 +44,10 @@ with desc_col:
         "usando datos históricos de riesgo crediticio del dataset Give Me Credit."
     )
 with download_col:
-    pptx_path = Path(__file__).resolve().parents[3] / "presentacion" / "Resumen_Presentacion.pptx"
+    pptx_path = Path(__file__).resolve().parents[1] / "presentacion" / "Resumen_Presentacion.pptx"
     if pptx_path.exists():
         st.download_button(
-            "Download Project PPT",
+            "Descargar PPT del Proyecto",
             data=pptx_path.read_bytes(),
             file_name=pptx_path.name,
             mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",

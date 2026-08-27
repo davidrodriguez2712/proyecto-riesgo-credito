@@ -1,0 +1,7 @@
+modelo,auc_cv,std_auc,max_auc,min_auc
+LGBMClassifier,0.865,0.004,0.869,0.859
+CatBoostClassifier,0.864,0.003,0.869,0.858
+XGBClassifier,0.856,0.004,0.862,0.851
+RandomForestClassifier,0.84,0.004,0.847,0.836
+LogisticRegression,0.825,0.005,0.834,0.82
+DecisionTreeClassifier,0.614,0.005,0.623,0.607

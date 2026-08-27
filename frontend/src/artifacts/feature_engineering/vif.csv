@@ -1,0 +1,9 @@
+feature,vif
+NumberOfOpenCreditLinesAndLoans_log_odds,1.272831
+NumberRealEstateLoansOrLines_log_odds,1.269276
+NumberOfDependents_log_odds,1.124942
+MonthlyIncome_log_odds,1.122312
+age_log_odds,1.104787
+DebtRatio_log_odds,1.070102
+NumberOfTime30-59DaysPastDueNotWorse_log_odds,1.006762
+RevolvingUtilizationOfUnsecuredLines_log_odds,1.000333

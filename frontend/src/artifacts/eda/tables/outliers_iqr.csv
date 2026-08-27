@@ -1,0 +1,7 @@
+feature,limite_superior,limite_inferior,registros_fuera_rango,porcentaje_fuera_rango
+DebtRatio,1.908024,-0.864696,31311,20.87
+NumberOfDependents,2.5,-1.5,13336,8.89
+MonthlyIncome,15522.5,-3873.5,4879,3.25
+NumberOfOpenCreditLinesAndLoans,20.0,-4.0,3980,2.65
+RevolvingUtilizationOfUnsecuredLines,1.352814,-0.763901,763,0.51
+age,96.0,8.0,46,0.03

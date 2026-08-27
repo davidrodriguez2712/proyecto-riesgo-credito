@@ -1,0 +1,2 @@
+registros,missing_target,clases_unicas,positive_rate,negative_rate,imbalance_rate,baseline_accuracy,nivel_desbalance
+150000,0,2,0.06684,0.93316,13.96:1,0.9332,Desbalanceado

@@ -14,7 +14,7 @@ from dashboard_data import (
 )
 from layout import render_header
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 render_header()
 st.subheader("EDA - Análisis Exploratorio de Datos")

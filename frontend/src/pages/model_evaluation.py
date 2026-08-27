@@ -5,7 +5,7 @@ import streamlit as st
 from dashboard_data import DECILE_KS_LIFT, MODEL_EVALUATION_FIGURES, PORTFOLIO_MANAGEMENT
 from layout import render_header
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 render_header()
 st.subheader("Evaluación del Modelo")

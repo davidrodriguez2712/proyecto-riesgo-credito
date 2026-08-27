@@ -6,7 +6,7 @@ import streamlit as st
 from dashboard_data import MONITORING_FIGURES, PSI_SNAPSHOT, TARGET_DRIFT
 from layout import render_header
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 MONITORING_SECTIONS = [
     ("performance", "Performance"),
