@@ -36,6 +36,7 @@ El modelo final queda desplegado detrás de una **API en FastAPI** que calcula l
 ## Arquitectura
 
 El proyecto está organizado en dos capas: el **pipeline de modelado** (notebooks) y la **capa de despliegue** (backend + frontend), que consume los artefactos que el pipeline produce.
+La parte del frontend se elaboró mediante Claude Code usando la metodología SPEC Driven Design, pueden verlos en la carpeta specs.
 
 ```
 notebooks/01_eda.ipynb
