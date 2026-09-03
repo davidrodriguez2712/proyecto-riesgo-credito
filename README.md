@@ -33,6 +33,26 @@ El modelo final queda desplegado detrás de una **API en FastAPI** que calcula l
 
 ![Pantalla principal del dashboard](design/home.png)
 
+
+## Interpretabilidad y Explicabilidad
+
+Con el modelo ganador CatBoost luego de la optimización de hiperparámetros, se analizó las features con mayor contribución en todas las coalisiones posibles, las cuales podemos ver en el siguiente cuadro:
+
+![SHAP](artifacts/model_evaluation/SHAP_importance.png)
+
+Se puede observar que las features más importantes para el modelo son:
+- RevolvingUtilizationOfUnsecuredLines
+- NumberOfTime30-59DaysPastDueNotWorse
+- NumberOfTimes90DaysLate
+- NumberOfTime60-89DaysPastDueNotWorse
+
+En el siguiente cuadro se observa si la relación es creciente o decreciente.
+
+![SHAP_2](artifacts/model_evaluation/relacion_shap_features_values.png)
+
+- La utilización de línea de crédito nos muestra que mayor uso de la misma, hay mayor probabilidad de default
+- Para los grupos de pagos atrasados de 30 a 89 días nos muestra que a mayor aumento de estos impagos también incrementa la probabilidad de default.
+
 ## Arquitectura
 
 El proyecto está organizado en dos capas: el **pipeline de modelado** (notebooks) y la **capa de despliegue** (backend + frontend), que consume los artefactos que el pipeline produce.

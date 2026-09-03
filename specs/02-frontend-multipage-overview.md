@@ -1,6 +1,6 @@
 # SPEC 02 — Multi-page real y enriquecimiento del Overview
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-08-25
 > **Objetivo:** Reestructurar el frontend Streamlit a multi-page real (`st.navigation`) con sidebar clickeable, y enriquecer el Overview con la clasificación económica (gestión de portafolio), el pipeline de preprocessing (WOE + log-odds rolling) y la nota de selección de modelo, quitando el branding de Kaggle y corrigiendo las tarjetas truncadas.
